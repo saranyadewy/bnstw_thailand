@@ -5,6 +5,7 @@
     <script id="get_soul_event_tag">
         function get_sb_23s6_1(n, c) {
             $.get('https://raw.githubusercontent.com/saranyadewy/bnstw_thailand.github.io/main/data/soul_boost_23S6_6.json?' + makecss(), function (data, status) {
+                data = JSON.parse(data);
                 $(`.${c}`).html("");
                 for (let i = 0; i < 999; i++) {
                     const cssid = makecss();

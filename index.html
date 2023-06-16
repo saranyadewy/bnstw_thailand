@@ -185,6 +185,7 @@
                 var minutes_list_dun = d_list_dun.getMinutes();
                 var minutes_list_dun_md5 = md5(minutes_list_dun);
                 $.get(`${domain}/data/list_dun.json?v=${minutes_list_dun_md5}`, function (data, status) {
+                    data = JSON.parse(data);
                     const md5nf = md5(nf);
 
                     if (data["0"][md5nf] != undefined) {
@@ -306,6 +307,7 @@
         }
         function get_soul_event(n, c) {
             $.get("https://raw.githubusercontent.com/saranyadewy/bnstw_thailand.github.io/main/data/" + n.toLowerCase() + ".json?key=" + makecss(), function (data, status) {
+                data = JSON.parse(data);
                 $(`.${c}`).html("");
                 for (let i = 0; i < 20; i++) {
                     const cssid = makecss();
