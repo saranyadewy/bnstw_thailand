@@ -147,6 +147,7 @@
         }
     </style>
     <script>
+        const domain = `https://raw.githubusercontent.com/saranyadewy/bnstw_thailand.github.io/main`;
         function transfer_icon(n, nf, img) {
             const dropdownid = makecss();
             const bodyid = makecss();
@@ -183,7 +184,7 @@
                 var d_list_dun = new Date("July 21, 1983 01:15:00");
                 var minutes_list_dun = d_list_dun.getMinutes();
                 var minutes_list_dun_md5 = md5(minutes_list_dun);
-                $.get('https://raw.githubusercontent.com/saranyadewy/bnstw_thailand/main/data/list_dun.json?v='+ minutes_list_dun_md5, function (data, status) {
+                $.get(`${domain}/data/list_dun.json?v=${minutes_list_dun_md5}`, function (data, status) {
                     const md5nf = md5(nf);
 
                     if (data["0"][md5nf] != undefined) {
@@ -222,14 +223,14 @@
             return n;
         }
         function transfer_icon_(n) {
-            n = n.replaceAll("[icon:dragon]", `<img width='32px' style='pointer-events: none;' draggable='false' src='/img/Q00009.png'>`);
-            n = n.replaceAll("[icon:dungeons]", `<img width='32px' style='pointer-events: none;' draggable='false' src='/img/Q00006.png'>`);
-            n = n.replaceAll("[icon:space_quest]", `<img width='32px' style='pointer-events: none;' draggable='false' src='/img/561651.png'>`);
-            n = n.replaceAll("[icon:daily_quest]", `<img width='32px' style='pointer-events: none;' draggable='false' src='/img/Q00001.png'>`);
-            n = n.replaceAll("[icon:warp]", `<img width='32px' style='pointer-events: none;' draggable='false' src='/img/Q00007.png'>`);
+            n = n.replaceAll("[icon:dragon]", `<img width='32px' style='pointer-events: none;' draggable='false' src='${domain}/img/Q00009.png'>`);
+            n = n.replaceAll("[icon:dungeons]", `<img width='32px' style='pointer-events: none;' draggable='false' src='${domain}/img/Q00006.png'>`);
+            n = n.replaceAll("[icon:space_quest]", `<img width='32px' style='pointer-events: none;' draggable='false' src='${domain}/img/561651.png'>`);
+            n = n.replaceAll("[icon:daily_quest]", `<img width='32px' style='pointer-events: none;' draggable='false' src='${domain}/img/Q00001.png'>`);
+            n = n.replaceAll("[icon:warp]", `<img width='32px' style='pointer-events: none;' draggable='false' src='${domain}/img/Q00007.png'>`);
 
-            n = n.replaceAll("[icon:new_reward]", `<img width='32px' style='pointer-events: none;' draggable='false' src='/img/2282515.png'>`);
-            n = n.replaceAll("[icon:new_quest]", `<img width='32px' style='pointer-events: none;' draggable='false' src='/img/7139531.png'>`);
+            n = n.replaceAll("[icon:new_reward]", `<img width='32px' style='pointer-events: none;' draggable='false' src='${domain}/img/2282515.png'>`);
+            n = n.replaceAll("[icon:new_quest]", `<img width='32px' style='pointer-events: none;' draggable='false' src='${domain}/img/7139531.png'>`);
             
             return n;
         }
@@ -239,7 +240,7 @@
             const match = text.match(regex);
             if (match != null) {
                 if (match[1] != undefined) {
-                    n = n.replaceAll(`[icon:${match[1]}]`, `<img width='24px' style='pointer-events: none;' draggable='false' src='/img/item/${match[1]}.png'>`);
+                    n = n.replaceAll(`[icon:${match[1]}]`, `<img width='24px' style='pointer-events: none;' draggable='false' src='${domain}/img/item/${match[1]}.png'>`);
                 }
             }
             return n;
@@ -304,7 +305,7 @@
             return `css-${result}`;
         }
         function get_soul_event(n, c) {
-            $.get("data/" + n.toLowerCase() + ".json?key=" + makecss(), function (data, status) {
+            $.get("https://raw.githubusercontent.com/saranyadewy/bnstw_thailand.github.io/main/data/" + n.toLowerCase() + ".json?key=" + makecss(), function (data, status) {
                 $(`.${c}`).html("");
                 for (let i = 0; i < 20; i++) {
                     const cssid = makecss();
