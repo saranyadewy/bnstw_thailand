@@ -363,7 +363,7 @@
             localStorage.clear();
         }
         /* วิธีการเขียนเว็บของโปรแกรมเมอร์แสนจะขี้เจียจ 555 */
-        function get_sb_23s6_1(n, c, f) {
+        function get_sb_23s6_1(n, c, f, t) {
             $.get(`https://raw.githubusercontent.com/saranyadewy/bnstw_thailand.github.io/main/data/${f}.json?` + makecss(), function (data, status) {
                 data = JSON.parse(data);
                 $(`.${c}`).html("");
@@ -378,7 +378,7 @@
                     const content_id = makecss();
 
 
-                    if (data["0"]["boost"][n][i] == undefined) {
+                    if (data["0"][t][n][i] == undefined) {
                         break;
                     } else {
                         $(`.${c}`).append(`
@@ -397,19 +397,19 @@
                         setTimeout(() => {
                             $(`.${tdtw}`).html("");
                             for (let l = 0; l < 999; l++) {
-                                if (data["0"]["boost"][n][i]["tw"][l] == undefined) {
+                                if (data["0"][t][n][i]["tw"][l] == undefined) {
                                     break;
                                 } else {
-                                    $(`.${tdtw}`).append(`<text class="">${data["0"]["boost"][n][i]["tw"][l]}</text><br>`);
+                                    $(`.${tdtw}`).append(`<text class="">${data["0"][t][n][i]["tw"][l]}</text><br>`);
                                 }
                             }
                             $(`.${tdth_text}`).html("");
                             for (let l = 0; l < 999; l++) {
-                                if (data["0"]["boost"][n][i]["th"][l] == undefined) {
+                                if (data["0"][t][n][i]["th"][l] == undefined) {
                                     break;
                                 } else {
-                                    var text_th_ = data["0"]["boost"][n][i]["th"][l];
-                                    text_th_ = transfer_icon(text_th_, data["0"]["boost"][n][i]["th"]["name"], data["0"]["boost"][n][i]["img"]);
+                                    var text_th_ = data["0"][t][n][i]["th"][l];
+                                    text_th_ = transfer_icon(text_th_, data["0"][t][n][i]["th"]["name"], data["0"][t][n][i]["img"]);
 
                                     if (l == 0) {
                                         $(`.${tdth_text}`).append(`<text class="">${text_th_}<br></text>`);
@@ -417,8 +417,8 @@
                                         $(`.${tdth_text}`).append(`<text class="${content_id}">${text_th_}<br></text>`);
                                     }
                                 }
-                                if (data["0"]["boost"][n][i]["tw"] != undefined) {
-                                    var toggle_save_id = md5(Object.values(data["0"]["boost"][n][i]["tw"]).join(''));
+                                if (data["0"][t][n][i]["tw"] != undefined) {
+                                    var toggle_save_id = md5(Object.values(data["0"][t][n][i]["tw"]).join(''));
                                     if (localStorage.getItem(toggle_save_id) === null) {
                                         localStorage.setItem(toggle_save_id, "false");
                                     }
@@ -434,9 +434,9 @@
                             }
                             $(`.${tdth_img}`).html(`<img class="image-m-full even-image ${content_id}" style="width: 200px;" src="https://i.imgur.com/U96AcCC.png" draggable="false">`);
                             setTimeout(() => {
-                                $("#headercss").append(`.${cssid} {background-image: url("https://i.imgur.com/${data["0"]["boost"][n][i]["img"]}.png");}`);
+                                $("#headercss").append(`.${cssid} {background-image: url("https://i.imgur.com/${data["0"][t][n][i]["img"]}.png");}`);
                             }, 800);
-                            $(`.${tdth_text}`).append(`<text class="${content_id}">คะแนนรวม : ${data["0"]["boost"][n][i]["score"]}<br></text>`);
+                            $(`.${tdth_text}`).append(`<text class="${content_id}">คะแนนรวม : ${data["0"][t][n][i]["score"]}<br></text>`);
                             $(`.${tdth_text}`).append(`
                                 <div class="form-group">
                                     <div class="form-check" style="padding-left: 0rem;">
