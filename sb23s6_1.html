@@ -3,75 +3,27 @@
         <img src="/loading.gif" alt="" width="100rem">
     </h3>
     <script id="get_soul_event_tag">
-        function get_sb_23s6_1(n, c) {
-            $.get('https://raw.githubusercontent.com/saranyadewy/bnstw_thailand.github.io/main/data/soul_boost_23S6_1.json?' + makecss(), function (data, status) {
-                data = JSON.parse(data);
-                $(`.${c}`).html("");
-                for (let i = 0; i < 999; i++) {
-                    const cssid = makecss();
-                    const tdtw = makecss();
-                    const tdth_text = makecss();
-                    const tdth_img = makecss();
-                    if (data["0"]["boost"][n][i] == undefined) {
-                        break;
-                    } else {
-                        //console.log(data["0"]["boost"][n][i]);
-                        $(`.${c}`).append(`
-                            <tr>
-                                <td class="${tdtw}">
-                                    <img src="/img/fbloader.gif" alt="">
-                                </td>
-                                <td style="font-size: 20px;">
-                                    <div class="d-flex justify-content-between">
-                                        <div class="${tdth_text}"><img src="/img/fbloader.gif" alt=""></div>
-                                        <div class="${tdth_img} ${cssid} even-image-"><img src="/img/fbloader.gif" alt=""></div>
-                                    </div>
-                                </td>
-                            </tr>
-                        `);
-                        setTimeout(() => {
-                            $(`.${tdtw}`).html(""); 
-                            for (let l = 0; l < 999; l++) {
-                                if (data["0"]["boost"][n][i]["tw"][l] == undefined) {
-                                    break;
-                                } else {
-                                    $(`.${tdtw}`).append(`${data["0"]["boost"][n][i]["tw"][l]}<br>`);
-                                }
-                            }
-                            $(`.${tdth_text}`).html("");
-                            for (let l = 0; l < 999; l++) {
-                                if (data["0"]["boost"][n][i]["th"][l] == undefined) {
-                                    break;
-                                } else {
-                                    var text_th_ = data["0"]["boost"][n][i]["th"][l];
-                                    text_th_ = transfer_icon(text_th_,data["0"]["boost"][n][i]["th"]["name"],data["0"]["boost"][n][i]["img"]);
-
-
-                                    $(`.${tdth_text}`).append(`${text_th_}<br>`);
-                                }
-                            }
-                            $(`.${tdth_img}`).html(`<img class="image-m-full even-image" style="width: 200px;" src="https://i.imgur.com/U96AcCC.png" draggable="false">`);
-                            setTimeout(() => {
-                                $("#headercss").append(`.${cssid} {background-image: url("https://i.imgur.com/${data["0"]["boost"][n][i]["img"]}.png");}`);
-                            }, 800);
-                            $(`.${tdth_text}`).append(`คะแนนรวม : ${data["0"]["boost"][n][i]["score"]}<br>`);
-                        }, 800);
-                    }
-                }
-                $(`.${c}`).append(`<tr><td>I3lackI3unny</td><td><a href="i3lacki3unny.web.app">i3lacki3unny.web.app</a></td></tr>`);
-            });
-        }
         window.history.pushState("object or string", "Title", "/share/sb23s6_1.html?v=" + makecss());
-        setTimeout(() => { 
-            get_sb_23s6_1("0", "add-content-level-1");
-            get_sb_23s6_1("1", "add-content-level-2");
-            get_sb_23s6_1("2", "add-content-level-3");
-            get_sb_23s6_1("3", "add-content-level-4");
+        setTimeout(() => {
+            get_sb_23s6_1("0", "add-content-level-1", "soul_boost_23S6_1");
+            get_sb_23s6_1("1", "add-content-level-2", "soul_boost_23S6_1");
+            get_sb_23s6_1("2", "add-content-level-3", "soul_boost_23S6_1");
+            get_sb_23s6_1("3", "add-content-level-4", "soul_boost_23S6_1");
             $(".soul-title").html("โซบูส เริ่ม 14/06/2023 ถึง 19/07/2023 ก่อนปิดปรับปรุงเซิฟเวอร์");
             window.history.pushState("object or string", "Title", "/share/sb23s6_1.html?v=" + makecss());
             $("#get_soul_event_tag").remove();
         }, 1000);
     </script>
+    <style>
+        .quest-change-success {
+            background-color: black;
+            color: rgb(255, 255, 255) !important;
+        }
+        .quest-change-success:hover {
+            background-color: black !important;
+            color: rgb(255, 255, 255) !important;
+        }
+    </style>
     <script>
         $(function () {
             $("#tabs").tabs();
