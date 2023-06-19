@@ -435,6 +435,7 @@
                             }, 800);
                             $(`.${tdth_text}`).append(`<text class="${content_id}">คะแนนรวม : ${data["0"][t][n][i]["score"]}<br></text>`);
                             if (data["0"][t][n][i]["multiple_quest"] != undefined) {
+                                var toggle_save_id = md5(Object.values(data["0"][t][n][i]["tw"]).join(''));
                                 const dropdown_select_id = makecss();
                                 const dropdown_title_id = makecss();
                                 $(`.${tdth_text}`).append(`
@@ -447,7 +448,8 @@
                                 `);
                                 setTimeout(() => {
                                     const dropdown_select_list = data["0"][t][n][i]["multiple_quest"].split("/");
-                                    console.log(dropdown_select_list);
+                                    const dropdown_window_id = makecss();
+                                    window[dropdown_window_id] = dropdown_select_list;
                                     for (let xli = 0; xli < 15; xli++) {
                                         if (dropdown_select_list[xli] == undefined) {
                                             break;
@@ -455,13 +457,31 @@
                                             $(`.${dropdown_select_id}`).append(`
                                                 <a class="dropdown-item" onclick="select_multiple_quest(
                                                 '${dropdown_title_id}',
-                                                '${dropdown_select_list[xli]}'
-                                                )" style="cursor: pointer;">${dropdown_select_list[xli]}</a>
+                                                '${dropdown_select_list[xli]}',
+                                                '${data["0"][t][n][i]["multiple_quests"]}',
+                                                '${dropdown_select_list.length}',
+                                                '${dropdown_window_id}',
+                                                '${headerid}','${content_id}','${toggle_save_id}'
+                                                )" style="cursor: pointer;">สำเร็จ ${dropdown_select_list[xli]} ${data["0"][t][n][i]["multiple_quests"]}</a>
                                             `);
                                         }
                                     }
+                                    setTimeout(() => {
+                                        if (localStorage.getItem("toggle_save_id") === null) {
+                                            const local_save = localStorage.getItem(toggle_save_id).split("/");
+                                            if (local_save[1] == "exit") {
+                                                $(`.${dropdown_title_id}`).html(language_th("cancel")).removeClass("btn-primary").addClass("btn-danger");
+                                                $(`.${headerid}`).addClass("quest-change-success");
+                                                $(`.${content_id}`).hide();
+                                            } else {
+                                                $(`.${dropdown_title_id}`).html(`สำเร็จไปแล้ว ${local_save[0]} ${data["0"][t][n][i]["multiple_quests"]}`)
+                                                .removeClass("btn-primary").addClass("btn-warning");
+                                            }
+                                        }
+                                    }, 400);
                                 }, 400);
                             } else {
+                                var toggle_save_id = md5(Object.values(data["0"][t][n][i]["tw"]).join(''));
                                 $(`.${tdth_text}`).append(`
                                 <div class="form-group">
                                     <div class="form-check" style="padding-left: 0rem;">
@@ -481,12 +501,11 @@
                                     } else {
                                         $(`.${headerid}`).addClass("quest-change-success");
                                         $(`.${content_id}`).hide();
-                                        $(`.${toggle_id}`).removeClass("btn-dark").addClass("btn-light").html(language_th("cancel"));
+                                        $(`.${toggle_id}`).removeClass("btn-dark").addClass("btn-danger").html(language_th("cancel"));
                                         localStorage.setItem(toggle_save_id, "true");
                                     }
                                 })
                                 if (data["0"][t][n][i]["tw"] != undefined) {
-                                    var toggle_save_id = md5(Object.values(data["0"][t][n][i]["tw"]).join(''));
                                     if (localStorage.getItem(toggle_save_id) === null) {
                                         localStorage.setItem(toggle_save_id, "false");
                                     }
@@ -494,7 +513,7 @@
                                         if (localStorage.getItem(toggle_save_id) == "true") {
                                             $(`.${headerid}`).addClass("quest-change-success");
                                             $(`.${content_id}`).hide();
-                                            $(`.${toggle_id}`).removeClass("btn-dark").addClass("btn-light").html(language_th("cancel"));
+                                            $(`.${toggle_id}`).removeClass("btn-dark").addClass("btn-danger").html(language_th("cancel"));
                                             $(`.${toggle_id}`).prop('checked', true);
                                         }
                                     }, 400);
@@ -506,9 +525,20 @@
                 $(`.${c}`).append(`<tr><td>I3lackI3unny</td><td><a href="i3lacki3unny.web.app">i3lacki3unny.web.app</a></td></tr>`);
             });
         }
-        function select_multiple_quest(id,lv){
-            $(`.${id}`).html(`สำเร็จไปแล้ว ${lv}`);
-            console.log(lv);
+        function select_multiple_quest(id, lv, s, count, win, headerid, content_id, toggle_save_id) {
+            const exit = window[win][(count - 1)];
+            if (exit == lv) {
+                $(`.${id}`).html(language_th("cancel")).removeClass("btn-primary").addClass("btn-danger");
+                $(`.${headerid}`).addClass("quest-change-success");
+                $(`.${content_id}`).hide();
+                localStorage.setItem(toggle_save_id, `${lv}/exit`);
+            } else {
+                $(`.${id}`).html(`สำเร็จไปแล้ว ${lv} ${s}`).removeClass("btn-primary").addClass("btn-warning");
+                $(`.${headerid}`).removeClass("quest-change-success");
+                $(`.${content_id}`).show();
+                localStorage.setItem(toggle_save_id, `${lv}/wait`);
+            }
+            console.log(window[win][(count - 1)]);
         }
     </script>
 </head>
