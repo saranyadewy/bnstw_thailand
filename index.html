@@ -479,12 +479,14 @@
                                                 $(`.${headerid}`).addClass("quest-change-success");
                                                 $(`.${content_id}`).hide();
                                             } else {
-                                                if (local_save[0] != "zero") {
-                                                    var value = `สำเร็จไปแล้ว ${local_save[0]} ${data["0"][t][n][i]["multiple_quests"]}`;
-                                                    $(`.${dropdown_title_id}`).html(`${value}`).removeClass("btn-primary").addClass("btn-warning");
-                                                } else {
-                                                    var value = `เลือกเควส`;
-                                                    $(`.${dropdown_title_id}`).html(`${value}`).removeClass("btn-warning btn-danger").addClass("btn-primary");
+                                                if (local_save[0] != "false") {
+                                                    if (local_save[0] != "zero") {
+                                                        var value = `สำเร็จไปแล้ว ${local_save[0]} ${data["0"][t][n][i]["multiple_quests"]}`;
+                                                        $(`.${dropdown_title_id}`).html(`${value}`).removeClass("btn-primary").addClass("btn-warning");
+                                                    } else {
+                                                        var value = `เลือกเควส`;
+                                                        $(`.${dropdown_title_id}`).html(`${value}`).removeClass("btn-warning btn-danger").addClass("btn-primary");
+                                                    }
                                                 }
                                             }
                                         }

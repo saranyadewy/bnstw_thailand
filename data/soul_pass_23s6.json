@@ -91,7 +91,9 @@
                         "name": "ล็อกอินรายเควส"
                     },
                     "score": "700",
-                    "img": "U96AcCC"
+                    "img": "U96AcCC",
+                    "multiple_quest": "zero/1/3",
+                    "multiple_quests": "วัน"
                 },
                 "6": {
                     "tw": {
