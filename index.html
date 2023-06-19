@@ -498,7 +498,7 @@
                                 <div class="form-group">
                                     <div class="form-check" style="padding-left: 0rem;">
                                     <input class="form-check-input ${toggle_id}" style="display: none;" type="checkbox" id="${toggle_id}">
-                                    <label class="form-check-label btn btn-dark ${toggle_id}" style="cursor: pointer;" for="${toggle_id}">
+                                    <label class="form-check-label btn btn-success ${toggle_id}" style="cursor: pointer;" for="${toggle_id}">
                                         ${language_th("complete the quest")}
                                     </label>
                                     </div>
@@ -508,12 +508,12 @@
                                     if ($(this).prop('checked') == false) {
                                         $(`.${headerid}`).removeClass("quest-change-success");
                                         $(`.${content_id}`).show();
-                                        $(`.${toggle_id}`).removeClass("btn-light").addClass("btn-dark").html(language_th("complete the quest"));
+                                        $(`.${toggle_id}`).removeClass("btn-light").addClass("btn-success").html(language_th("complete the quest"));
                                         localStorage.setItem(toggle_save_id, "false");
                                     } else {
                                         $(`.${headerid}`).addClass("quest-change-success");
                                         $(`.${content_id}`).hide();
-                                        $(`.${toggle_id}`).removeClass("btn-dark").addClass("btn-danger").html(language_th("cancel"));
+                                        $(`.${toggle_id}`).removeClass("btn-success").addClass("btn-danger").html(language_th("cancel"));
                                         localStorage.setItem(toggle_save_id, "true");
                                     }
                                 })
@@ -525,7 +525,7 @@
                                         if (localStorage.getItem(toggle_save_id) == "true") {
                                             $(`.${headerid}`).addClass("quest-change-success");
                                             $(`.${content_id}`).hide();
-                                            $(`.${toggle_id}`).removeClass("btn-dark").addClass("btn-danger").html(language_th("cancel"));
+                                            $(`.${toggle_id}`).removeClass("btn-success").addClass("btn-danger").html(language_th("cancel"));
                                             $(`.${toggle_id}`).prop('checked', true);
                                         }
                                     }, 400);
@@ -555,6 +555,16 @@
                 localStorage.setItem(toggle_save_id, `${lv}/wait`);
             }
             console.log(window[win][(count - 1)]);
+        }
+        function capture() {
+            const div = document.getElementById('tabs');
+
+            html2canvas(div).then(function (canvas) {
+                canvas.toBlob(function (blob) {
+                    const url = URL.createObjectURL(blob);
+                    console.log(url);
+                }, 'image/png');
+            });
         }
     </script>
 </head>
