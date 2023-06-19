@@ -38,6 +38,13 @@
     <script src="//vjs.zencdn.net/8.3.0/video.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.19.0/js/md5.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+    <script>
+        function language_th(t) {
+            t = t.replaceAll('complete the quest', 'สำเร็จเควส');
+            t = t.replaceAll('cancel', 'ยกเลิก');
+            return t;
+        }
+    </script>
     <style id="headercss">
         @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css");
         @import url("https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css");
@@ -362,7 +369,7 @@
             const updatedDate = `${year}-${month}-${day}`;
             return updatedDate;
         }
-        if (window.location.hostname == '127.0.0.1') { } else if (window.location.hostname == 'i3lacki3unny.web.app') {} else {
+        if (window.location.hostname == '127.0.0.1') { } else if (window.location.hostname == 'i3lacki3unny.web.app') { } else {
             localStorage.clear();
         }
         /* วิธีการเขียนเว็บของโปรแกรมเมอร์แสนจะขี้เจียจ 555 */
@@ -429,7 +436,7 @@
                                         if (localStorage.getItem(toggle_save_id) == "true") {
                                             $(`.${headerid}`).addClass("quest-change-success");
                                             $(`.${content_id}`).hide();
-                                            $(`.${toggle_id}`).removeClass("btn-dark").addClass("btn-light").html("ขยายขนาดขึ้น");
+                                            $(`.${toggle_id}`).removeClass("btn-dark").addClass("btn-light").html(language_th("cancel"));
                                             $(`.${toggle_id}`).prop('checked', true);
                                         }
                                     }, 400);
@@ -445,7 +452,7 @@
                                     <div class="form-check" style="padding-left: 0rem;">
                                     <input class="form-check-input ${toggle_id}" style="display: none;" type="checkbox" id="${toggle_id}">
                                     <label class="form-check-label btn btn-dark ${toggle_id}" style="cursor: pointer;" for="${toggle_id}">
-                                        ย่อขนาดลง
+                                        ${language_th("complete the quest")}
                                     </label>
                                     </div>
                                 </div>`);
@@ -453,12 +460,12 @@
                                 if ($(this).prop('checked') == false) {
                                     $(`.${headerid}`).removeClass("quest-change-success");
                                     $(`.${content_id}`).show();
-                                    $(`.${toggle_id}`).removeClass("btn-light").addClass("btn-dark").html("ย่อขนาดลง");
+                                    $(`.${toggle_id}`).removeClass("btn-light").addClass("btn-dark").html(language_th("complete the quest"));
                                     localStorage.setItem(toggle_save_id, "false");
                                 } else {
                                     $(`.${headerid}`).addClass("quest-change-success");
                                     $(`.${content_id}`).hide();
-                                    $(`.${toggle_id}`).removeClass("btn-dark").addClass("btn-light").html("ขยายขนาดขึ้น");
+                                    $(`.${toggle_id}`).removeClass("btn-dark").addClass("btn-light").html(language_th("cancel"));
                                     localStorage.setItem(toggle_save_id, "true");
                                 }
                             })
@@ -609,11 +616,15 @@
                 <div class="card shadow bg-white rounded addcontent">
                     <div class="card-body">
                         <h1>I3lack I3unny</h1>
-                        <h5>Discord : ღ♫Diwツ♫ღ#7290</h5>
+                        <h5>Discord : saranyadewy</h5>
                         <h5>BNS Community หลัก: <a href="https://discord.gg/AndAW9dzrj"
                                 target="_blank">https://discord.gg/AndAW9dzrj</a>
                         </h5>
-                        <h5>BNS Community สำรอง : Coming Soon!
+                        <h5>
+                            <div class="JustBecause-box">
+                                <h3 class="rainbow rainbow_text_animated">JustBecause รับสมัครสมาชิก<br>สนใจทักแชท
+                                    Zelda#1858</h3>
+                            </div>
                         </h5>
                         <div style="display: none !important;" align='center'><a
                                 href='https://www.free-website-hit-counter.com'><img
@@ -623,6 +634,85 @@
                                     title="Free Website Hit Counter">Free website hit counter</a></small></div>
                     </div>
                 </div>
+                <style>
+                    #shadowBox {
+                        background-color: rgb(255, 255, 255);
+                        /* Fallback color */
+                        background-color: rgba(255, 255, 255, 0.2);
+                        /* Black w/opacity/see-through 
+                        border: 3px solid;*/
+                    }
+
+                    .rainbow {
+                        text-align: center;
+                        text-decoration: underline;
+                        font-size: 32px;
+                        font-family: monospace;
+                        letter-spacing: 5px;
+                        padding: 25px;
+                    }
+
+                    .rainbow_text_animated {
+                        background: linear-gradient(to right, #6666ff, #0099ff, #00ff00, #ff3399, #6666ff);
+                        -webkit-background-clip: text;
+                        background-clip: text;
+                        color: transparent;
+                        animation: rainbow_animation 6s ease-in-out infinite;
+                        background-size: 400% 100%;
+                    }
+
+                    @keyframes rainbow_animation {
+
+                        0%,
+                        100% {
+                            background-position: 0 0;
+                        }
+
+                        50% {
+                            background-position: 100% 0;
+                        }
+                    }
+
+
+                    .JustBecause-box {
+                        --border-size: 3px;
+                        --border-angle: 0turn;
+                        width: auto;
+                        height: auto;
+                        background-image: conic-gradient(from var(--border-angle), #213, #112 50%, #213), conic-gradient(from var(--border-angle), transparent 20%, #08f, #f03);
+                        background-size: calc(100% - (var(--border-size) * 2)) calc(100% - (var(--border-size) * 2)), cover;
+                        background-position: center center;
+                        background-repeat: no-repeat;
+                        -webkit-animation: JustBecause-box-bg-spin 1.2s linear infinite;
+                        animation: JustBecause-box-bg-spin 1.2s linear infinite;
+                    }
+
+                    @-webkit-keyframes JustBecause-box-bg-spin {
+                        to {
+                            --border-angle: 1turn;
+                        }
+                    }
+
+                    @keyframes JustBecause-box-bg-spin {
+                        to {
+                            --border-angle: 1turn;
+                        }
+                    }
+
+                    .box:hover {
+                        -webkit-animation-play-state: paused;
+                        animation-play-state: paused;
+                    }
+
+                    @property --border-angle {
+                        syntax: "<angle>";
+                        inherits: true;
+                        initial-value: 0turn;
+                    }
+                    /*
+                        https://freefrontend.com/css-border-animations/
+                    */
+                </style>
                 <hr class="d-sm-none">
                 <div class="card shadow bg-white rounded path-thai_" style="margin-top: 25px;">
                     <div class="card-body path-thai" style="margin-left: auto;margin-right: auto;">
