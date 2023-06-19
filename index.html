@@ -454,6 +454,11 @@
                                         if (dropdown_select_list[xli] == undefined) {
                                             break;
                                         } else {
+                                            if (dropdown_select_list[xli] != "zero") {
+                                                var value = `สำเร็จ ${dropdown_select_list[xli]} ${data["0"][t][n][i]["multiple_quests"]}`;
+                                            } else {
+                                                var value = `เลือกเควส`;
+                                            }
                                             $(`.${dropdown_select_id}`).append(`
                                                 <a class="dropdown-item" onclick="select_multiple_quest(
                                                 '${dropdown_title_id}',
@@ -462,7 +467,7 @@
                                                 '${dropdown_select_list.length}',
                                                 '${dropdown_window_id}',
                                                 '${headerid}','${content_id}','${toggle_save_id}'
-                                                )" style="cursor: pointer;">สำเร็จ ${dropdown_select_list[xli]} ${data["0"][t][n][i]["multiple_quests"]}</a>
+                                                )" style="cursor: pointer;">${value}</a>
                                             `);
                                         }
                                     }
@@ -474,8 +479,13 @@
                                                 $(`.${headerid}`).addClass("quest-change-success");
                                                 $(`.${content_id}`).hide();
                                             } else {
-                                                $(`.${dropdown_title_id}`).html(`สำเร็จไปแล้ว ${local_save[0]} ${data["0"][t][n][i]["multiple_quests"]}`)
-                                                .removeClass("btn-primary").addClass("btn-warning");
+                                                if (local_save[0] != "zero") {
+                                                    var value = `สำเร็จไปแล้ว ${local_save[0]} ${data["0"][t][n][i]["multiple_quests"]}`;
+                                                    $(`.${dropdown_title_id}`).html(`${value}`).removeClass("btn-primary").addClass("btn-warning");
+                                                } else {
+                                                    var value = `เลือกเควส`;
+                                                    $(`.${dropdown_title_id}`).html(`${value}`).removeClass("btn-warning btn-danger").addClass("btn-primary");
+                                                }
                                             }
                                         }
                                     }, 400);
@@ -528,12 +538,16 @@
         function select_multiple_quest(id, lv, s, count, win, headerid, content_id, toggle_save_id) {
             const exit = window[win][(count - 1)];
             if (exit == lv) {
-                $(`.${id}`).html(language_th("cancel")).removeClass("btn-primary").addClass("btn-danger");
+                $(`.${id}`).html(language_th("cancel")).removeClass("btn-primary btn-warning").addClass("btn-danger");
                 $(`.${headerid}`).addClass("quest-change-success");
                 $(`.${content_id}`).hide();
                 localStorage.setItem(toggle_save_id, `${lv}/exit`);
             } else {
-                $(`.${id}`).html(`สำเร็จไปแล้ว ${lv} ${s}`).removeClass("btn-primary").addClass("btn-warning");
+                if (lv == "zero") {
+                    $(`.${id}`).html(`${language_th("Select Quest")}`).addClass("btn-primary").removeClass("btn-warning btn-danger");
+                } else {
+                    $(`.${id}`).html(`สำเร็จไปแล้ว ${lv} ${s}`).removeClass("btn-primary btn-danger").addClass("btn-warning");
+                }
                 $(`.${headerid}`).removeClass("quest-change-success");
                 $(`.${content_id}`).show();
                 localStorage.setItem(toggle_save_id, `${lv}/wait`);
