@@ -251,7 +251,9 @@
                         "name": "สำนักคุนลุนแห่งห้วงเวลา"
                     },
                     "score": "1800",
-                    "img": "gjauuTg"
+                    "img": "gjauuTg",
+                    "multiple_quest": "zero/1/3/5/7",
+                    "multiple_quests": "เควส"
                 },
                 "1": {
                     "tw": {
