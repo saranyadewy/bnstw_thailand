@@ -427,20 +427,6 @@
                                         $(`.${tdth_text}`).append(`<text class="${content_id}">${text_th_}<br></text>`);
                                     }
                                 }
-                                if (data["0"][t][n][i]["tw"] != undefined) {
-                                    var toggle_save_id = md5(Object.values(data["0"][t][n][i]["tw"]).join(''));
-                                    if (localStorage.getItem(toggle_save_id) === null) {
-                                        localStorage.setItem(toggle_save_id, "false");
-                                    }
-                                    setTimeout(() => {
-                                        if (localStorage.getItem(toggle_save_id) == "true") {
-                                            $(`.${headerid}`).addClass("quest-change-success");
-                                            $(`.${content_id}`).hide();
-                                            $(`.${toggle_id}`).removeClass("btn-dark").addClass("btn-light").html(language_th("cancel"));
-                                            $(`.${toggle_id}`).prop('checked', true);
-                                        }
-                                    }, 400);
-                                }
                             }
                             $(`.${tdth_img}`).html(`<img class="image-m-full even-image ${content_id}" style="width: 200px;" src="https://i.imgur.com/U96AcCC.png" draggable="false">`);
                             setTimeout(() => {
@@ -455,7 +441,8 @@
                                         ${language_th("complete the quest")}
                                     </label>
                                     </div>
-                                </div>`);
+                                </div>
+                            `);
                             $(`#${toggle_id}`).change(function () {
                                 if ($(this).prop('checked') == false) {
                                     $(`.${headerid}`).removeClass("quest-change-success");
@@ -469,6 +456,20 @@
                                     localStorage.setItem(toggle_save_id, "true");
                                 }
                             })
+                            if (data["0"][t][n][i]["tw"] != undefined) {
+                                var toggle_save_id = md5(Object.values(data["0"][t][n][i]["tw"]).join(''));
+                                if (localStorage.getItem(toggle_save_id) === null) {
+                                    localStorage.setItem(toggle_save_id, "false");
+                                }
+                                setTimeout(() => {
+                                    if (localStorage.getItem(toggle_save_id) == "true") {
+                                        $(`.${headerid}`).addClass("quest-change-success");
+                                        $(`.${content_id}`).hide();
+                                        $(`.${toggle_id}`).removeClass("btn-dark").addClass("btn-light").html(language_th("cancel"));
+                                        $(`.${toggle_id}`).prop('checked', true);
+                                    }
+                                }, 400);
+                            }
                         }, 800);
                     }
                 }
@@ -622,7 +623,8 @@
                         </h5>
                         <h5>
                             <div class="JustBecause-box">
-                                <h3 class="JustBecause-rainbow JustBecause-rainbow_text_animated">JustBecause รับสมัครสมาชิก<br>สนใจทักแชท
+                                <h3 class="JustBecause-rainbow JustBecause-rainbow_text_animated">JustBecause
+                                    รับสมัครสมาชิก<br>สนใจทักแชท
                                     Zelda#1858</h3>
                             </div>
                         </h5>
@@ -710,6 +712,7 @@
                         inherits: true;
                         initial-value: 0turn;
                     }
+
                     /*
                         https://freefrontend.com/css-border-animations/
                     */
