@@ -41,6 +41,7 @@
     <script>
         function language_th(t) {
             t = t.replaceAll('complete the quest', 'สำเร็จเควส');
+            t = t.replaceAll('Select Quest', 'เลือกเควส');
             t = t.replaceAll('cancel', 'ยกเลิก');
             return t;
         }
@@ -433,7 +434,31 @@
                                 $("#headercss").append(`.${cssid} {background-image: url("https://i.imgur.com/${data["0"][t][n][i]["img"]}.png");}`);
                             }, 800);
                             $(`.${tdth_text}`).append(`<text class="${content_id}">คะแนนรวม : ${data["0"][t][n][i]["score"]}<br></text>`);
-                            $(`.${tdth_text}`).append(`
+                            if (data["0"][t][n][i]["multiple_quest"] != undefined) {
+                                const dropdown_select_id = makecss();
+                                $(`.${tdth_text}`).append(`
+                                <div class="dropdown">
+                                    <label class="form-check-label btn btn-dark dropdown-toggle" style="cursor: pointer;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        ${language_th("Select Quest")}
+                                    </label>
+                                    <div class="dropdown-menu ${dropdown_select_id}" aria-labelledby="dropdownMenuButton"></div>
+                                </div>
+                                `);
+                                setTimeout(() => {
+                                    const dropdown_select_list = data["0"][t][n][i]["multiple_quest"].split("/");
+                                    console.log(dropdown_select_list);
+                                    for (let xli = 0; xli < 15; xli++) {
+                                        if (dropdown_select_list[xli] == undefined) {
+                                            break;
+                                        } else {
+                                            $(`.${dropdown_select_id}`).append(`
+                                                <a class="dropdown-item" href="#">${dropdown_select_list[xli]}</a>
+                                            `);
+                                        }
+                                    }
+                                }, 400);
+                            } else {
+                                $(`.${tdth_text}`).append(`
                                 <div class="form-group">
                                     <div class="form-check" style="padding-left: 0rem;">
                                     <input class="form-check-input ${toggle_id}" style="display: none;" type="checkbox" id="${toggle_id}">
@@ -443,32 +468,33 @@
                                     </div>
                                 </div>
                             `);
-                            $(`#${toggle_id}`).change(function () {
-                                if ($(this).prop('checked') == false) {
-                                    $(`.${headerid}`).removeClass("quest-change-success");
-                                    $(`.${content_id}`).show();
-                                    $(`.${toggle_id}`).removeClass("btn-light").addClass("btn-dark").html(language_th("complete the quest"));
-                                    localStorage.setItem(toggle_save_id, "false");
-                                } else {
-                                    $(`.${headerid}`).addClass("quest-change-success");
-                                    $(`.${content_id}`).hide();
-                                    $(`.${toggle_id}`).removeClass("btn-dark").addClass("btn-light").html(language_th("cancel"));
-                                    localStorage.setItem(toggle_save_id, "true");
-                                }
-                            })
-                            if (data["0"][t][n][i]["tw"] != undefined) {
-                                var toggle_save_id = md5(Object.values(data["0"][t][n][i]["tw"]).join(''));
-                                if (localStorage.getItem(toggle_save_id) === null) {
-                                    localStorage.setItem(toggle_save_id, "false");
-                                }
-                                setTimeout(() => {
-                                    if (localStorage.getItem(toggle_save_id) == "true") {
+                                $(`#${toggle_id}`).change(function () {
+                                    if ($(this).prop('checked') == false) {
+                                        $(`.${headerid}`).removeClass("quest-change-success");
+                                        $(`.${content_id}`).show();
+                                        $(`.${toggle_id}`).removeClass("btn-light").addClass("btn-dark").html(language_th("complete the quest"));
+                                        localStorage.setItem(toggle_save_id, "false");
+                                    } else {
                                         $(`.${headerid}`).addClass("quest-change-success");
                                         $(`.${content_id}`).hide();
                                         $(`.${toggle_id}`).removeClass("btn-dark").addClass("btn-light").html(language_th("cancel"));
-                                        $(`.${toggle_id}`).prop('checked', true);
+                                        localStorage.setItem(toggle_save_id, "true");
                                     }
-                                }, 400);
+                                })
+                                if (data["0"][t][n][i]["tw"] != undefined) {
+                                    var toggle_save_id = md5(Object.values(data["0"][t][n][i]["tw"]).join(''));
+                                    if (localStorage.getItem(toggle_save_id) === null) {
+                                        localStorage.setItem(toggle_save_id, "false");
+                                    }
+                                    setTimeout(() => {
+                                        if (localStorage.getItem(toggle_save_id) == "true") {
+                                            $(`.${headerid}`).addClass("quest-change-success");
+                                            $(`.${content_id}`).hide();
+                                            $(`.${toggle_id}`).removeClass("btn-dark").addClass("btn-light").html(language_th("cancel"));
+                                            $(`.${toggle_id}`).prop('checked', true);
+                                        }
+                                    }, 400);
+                                }
                             }
                         }, 800);
                     }
