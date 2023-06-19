@@ -436,9 +436,10 @@
                             $(`.${tdth_text}`).append(`<text class="${content_id}">คะแนนรวม : ${data["0"][t][n][i]["score"]}<br></text>`);
                             if (data["0"][t][n][i]["multiple_quest"] != undefined) {
                                 const dropdown_select_id = makecss();
+                                const dropdown_title_id = makecss();
                                 $(`.${tdth_text}`).append(`
                                 <div class="dropdown">
-                                    <label class="form-check-label btn btn-dark dropdown-toggle" style="cursor: pointer;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <label class="form-check-label btn btn-primary dropdown-toggle ${dropdown_title_id}" style="cursor: pointer;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         ${language_th("Select Quest")}
                                     </label>
                                     <div class="dropdown-menu ${dropdown_select_id}" aria-labelledby="dropdownMenuButton"></div>
@@ -452,7 +453,10 @@
                                             break;
                                         } else {
                                             $(`.${dropdown_select_id}`).append(`
-                                                <a class="dropdown-item" href="#">${dropdown_select_list[xli]}</a>
+                                                <a class="dropdown-item" onclick="select_multiple_quest(
+                                                '${dropdown_title_id}',
+                                                '${dropdown_select_list[xli]}'
+                                                )" style="cursor: pointer;">${dropdown_select_list[xli]}</a>
                                             `);
                                         }
                                     }
@@ -501,6 +505,10 @@
                 }
                 $(`.${c}`).append(`<tr><td>I3lackI3unny</td><td><a href="i3lacki3unny.web.app">i3lacki3unny.web.app</a></td></tr>`);
             });
+        }
+        function select_multiple_quest(id,lv){
+            $(`.${id}`).html(`สำเร็จไปแล้ว ${lv}`);
+            console.log(lv);
         }
     </script>
 </head>
