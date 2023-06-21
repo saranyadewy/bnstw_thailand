@@ -27,12 +27,15 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <link href="//vjs.zencdn.net/8.3.0/video-js.min.css" rel="stylesheet">
     <script src="//vjs.zencdn.net/8.3.0/video.min.js"></script>
@@ -450,24 +453,28 @@
                                     const dropdown_select_list = data["0"][t][n][i]["multiple_quest"].split("/");
                                     const dropdown_window_id = makecss();
                                     window[dropdown_window_id] = dropdown_select_list;
-                                    for (let xli = 0; xli < 15; xli++) {
+                                    for (let xli = 0; xli < 30; xli++) {
                                         if (dropdown_select_list[xli] == undefined) {
                                             break;
                                         } else {
+                                            const dropdown_list_id = makecss();
+                                            window[md5(dropdown_list_id)] = [
+                                                dropdown_title_id,
+                                                dropdown_select_list[xli],
+                                                data["0"][t][n][i]["multiple_quests"],
+                                                dropdown_select_list.length,
+                                                dropdown_window_id,
+                                                headerid,
+                                                content_id,
+                                                toggle_save_id
+                                            ];
                                             if (dropdown_select_list[xli] != "zero") {
                                                 var value = `สำเร็จ ${dropdown_select_list[xli]} ${data["0"][t][n][i]["multiple_quests"]}`;
                                             } else {
                                                 var value = `เลือกเควส`;
                                             }
                                             $(`.${dropdown_select_id}`).append(`
-                                                <a class="dropdown-item" onclick="select_multiple_quest(
-                                                '${dropdown_title_id}',
-                                                '${dropdown_select_list[xli]}',
-                                                '${data["0"][t][n][i]["multiple_quests"]}',
-                                                '${dropdown_select_list.length}',
-                                                '${dropdown_window_id}',
-                                                '${headerid}','${content_id}','${toggle_save_id}'
-                                                )" style="cursor: pointer;">${value}</a>
+                                                <a class="dropdown-item" onclick="select_multiple_quest('${md5(dropdown_list_id)}')" style="cursor: pointer;">${value}</a>
                                             `);
                                         }
                                     }
@@ -508,7 +515,7 @@
                                     if ($(this).prop('checked') == false) {
                                         $(`.${headerid}`).removeClass("quest-change-success");
                                         $(`.${content_id}`).show();
-                                        $(`.${toggle_id}`).removeClass("btn-light").addClass("btn-success").html(language_th("complete the quest"));
+                                        $(`.${toggle_id}`).removeClass("btn-light btn-danger").addClass("btn-success").html(language_th("complete the quest"));
                                         localStorage.setItem(toggle_save_id, "false");
                                     } else {
                                         $(`.${headerid}`).addClass("quest-change-success");
@@ -537,7 +544,16 @@
                 $(`.${c}`).append(`<tr><td>I3lackI3unny</td><td><a href="i3lacki3unny.web.app">i3lacki3unny.web.app</a></td></tr>`);
             });
         }
-        function select_multiple_quest(id, lv, s, count, win, headerid, content_id, toggle_save_id) {
+        function select_multiple_quest(ids) {
+            const id = window[ids][0],
+                lv = window[ids][1],
+                s = window[ids][2],
+                count = window[ids][3],
+                win = window[ids][4],
+                headerid = window[ids][5],
+                content_id = window[ids][6],
+                toggle_save_id = window[ids][7];
+
             const exit = window[win][(count - 1)];
             if (exit == lv) {
                 $(`.${id}`).html(language_th("cancel")).removeClass("btn-primary btn-warning").addClass("btn-danger");
@@ -561,15 +577,55 @@
 
             html2canvas(div).then(function (canvas) {
                 canvas.toBlob(function (blob) {
+                    $('#show-capture-body').html("")
+                    $('#show-capture').modal('show');
                     const url = URL.createObjectURL(blob);
-                    console.log(url);
+                    $('#show-capture-body').html(`<div class="text-align:center;"><img src="${url}" width="100%" alt=""></div>`)
+                    /* const myWindow = window.open(url, "", "width=auto,height=auto"); */
                 }, 'image/png');
             });
+        }
+        $("#click-capture").on("click", function () {
+            capture();
+        });
+        function getLocalStorageDataAsBlobURL() {
+            var keys = Object.keys(localStorage);
+            var data = {};
+
+            keys.forEach(function (key) {
+                var value = localStorage.getItem(key);
+                data[key] = value;
+            });
+
+            var jsonData = JSON.stringify(data);
+            var blob = new Blob([jsonData], { type: 'application/json' });
+            var blobURL = URL.createObjectURL(blob);
+
+            return blobURL;
         }
     </script>
 </head>
 
 <body>
+    <div class="modal fade" id="show-capture" tabindex="-1" role="dialog" aria-labelledby="show-captureLongTitle"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="show-capture">Function Capture</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="show-capture-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <nav class="navbar navbar-expand-sm bg-light navbar-light fixed-top shadow">
         <!--   <a class="navbar-brand" href="#">Offline</a> -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#searchNavbar">
@@ -650,6 +706,10 @@
                                 <a class="btn btn-light btn-lg btn-block" style="font-size: 17px;"
                                     href="/index.html?p=Soul_Old"><img width="32px" style="pointer-events: none;"
                                         draggable="false" src="https://i3lacki3unny.web.app/img/Q00001.png"> ทั้งหมด</a>
+                                <a class="btn btn-light btn-lg btn-block"
+                                    style="font-size: 17px;display: none !important;"><img width="32px"
+                                        style="pointer-events: none;" draggable="false"
+                                        src="https://i3lacki3unny.web.app/img/Q00001.png"> Capture</a>
                             </div>
                         </div>
                     </li>
@@ -706,11 +766,7 @@
             <div class="col-9">
                 <div class="card shadow bg-white rounded addcontent">
                     <div class="card-body">
-                        <h1>I3lack I3unny</h1>
-                        <h5>Discord : saranyadewy</h5>
-                        <h5>BNS Community หลัก: <a href="https://discord.gg/AndAW9dzrj"
-                                target="_blank">https://discord.gg/AndAW9dzrj</a>
-                        </h5>
+                        <h1>Guide BNS TW</h1>
                         <h5>
                             <div class="JustBecause-box">
                                 <h3 class="JustBecause-rainbow JustBecause-rainbow_text_animated">JustBecause
@@ -724,6 +780,9 @@
                                     alt='Free Website Hit Counter'></a><br /><small><a
                                     href='https://www.free-website-hit-counter.com'
                                     title="Free Website Hit Counter">Free website hit counter</a></small></div>
+                        <h5>BNS Community หลัก: <a href="https://discord.gg/AndAW9dzrj"
+                                target="_blank">https://discord.gg/AndAW9dzrj</a>
+                        </h5>
                     </div>
                 </div>
                 <style>
