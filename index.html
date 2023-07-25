@@ -293,6 +293,7 @@
                     case "sb23s6_1":
                     case "sb23s6_6":
                     case "sp23s6":
+                    case "sp23s7":
                         $.get("/" + p.toLowerCase() + ".html?key" + makecss(), function (data, status) {
                             $(".addcontent").append(data);
                             $(".ripbnsth_").hide();
@@ -705,15 +706,11 @@
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 250px;">
                                 <a class="btn btn-light btn-lg btn-block" style="font-size: 17px;"
-                                    href="/share/sb23s6_1.html"><img width="32px" style="pointer-events: none;"
-                                        draggable="false" src="https://i3lacki3unny.web.app/img/Q00001.png"> โซบูส 1
-                                    เดือน ล่าสุด</a>
-                                <a class="btn btn-light btn-lg btn-block" style="font-size: 17px;"
                                     href="/share/sb23s6_6.html"><img width="32px" style="pointer-events: none;"
                                         draggable="false" src="https://i3lacki3unny.web.app/img/Q00001.png"> โซบูส 6
                                     เดือน ล่าสุด</a>
                                 <a class="btn btn-light btn-lg btn-block" style="font-size: 17px;"
-                                    href="/share/sp23s6.html"><img width="32px" style="pointer-events: none;"
+                                    href="/share/sp23s7.html"><img width="32px" style="pointer-events: none;"
                                         draggable="false" src="https://i3lacki3unny.web.app/img/Q00001.png"> โซพาส
                                     ล่าสุด</a>
                                 <a class="btn btn-light btn-lg btn-block" style="font-size: 17px;"
@@ -814,6 +811,7 @@
                         font-family: monospace;
                         letter-spacing: 5px;
                         padding: 25px;
+						display: none;
                     }
 
                     .JustBecause-rainbow_text_animated {
