@@ -421,7 +421,7 @@
                                 if (data["0"][t][n][i]["tw"][l] == undefined) {
                                     break;
                                 } else {
-                                    $(`.${tdtw}`).append(`<text class="">${data["0"][t][n][i]["tw"][l]}</text><br>`);
+                                    $(`.${tdtw}`).append(`<text class="">${transfer_icon(data["0"][t][n][i]["tw"][l])}</text><br>`);
                                 }
                             }
                             $(`.${tdth_text}`).html("");
