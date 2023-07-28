@@ -1,1 +1,0 @@
-# bnstw_thailand
